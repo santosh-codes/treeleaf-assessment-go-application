@@ -126,3 +126,5 @@ Once the application is deployed, it can be accessed from a web browser by follo
 2. **Port Forward the application**
    kubectl port-forward svc/todo-app-service(service-name-of-application) 32743:8080 --address 0.0.0.0 &
 3. **Access the app using http://15.206.47.68:32743/**
+
+.
