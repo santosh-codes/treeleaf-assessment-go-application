@@ -46,4 +46,26 @@ To run the application locally, follow these steps:
 
 The application will start on http://localhost:8080
 
-.
+## Running the Application in Docker Container
+
+The application is containerized using Docker. The Dockerfile uses a multi-stage build to separate the build environment and runtime environment for the Go application.
+
+### Docker Stages:
+
+1. **Builder Stage**: This stage installs Go, fetches dependencies, and builds the application into a binary.
+2. **Runner Stage**: This stage uses the Alpine base image to run the application, ensuring a smaller container size and faster performance. It also copies the necessary templates and the compiled Go binary from the builder stage.
+
+### Docker Commands
+
+1. **Build the Docker image**:
+
+   ```bash
+   docker build -t <image-name> .
+   ```
+
+2. **Run the Docker container**:
+
+   ```bash
+   docker run -p 8080:8080 <image-name>
+
+   ```
