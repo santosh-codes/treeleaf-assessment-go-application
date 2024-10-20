@@ -18,21 +18,32 @@ To run the application locally, follow these steps:
 1. **Clone the repository** to your local machine:
 
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   git clone https://github.com/santosh-codes/treeleaf-assessment-go-application
+   cd treeleaf-assessment-go-application
 
    ```
 
 2. **Navigate to the src folder**:
 
-   cd src
+   ```bash
+   cd todo-app
+
+   ```
 
 3. **Initialize the Go module** (if not done already):
 
-   go mod init todolist
+   ```bash
+   go mod init todo-app
+
+   ```
 
 4. Run the application:
 
+   ```bash
    go run main.go
 
+   ```
+
 The application will start on http://localhost:8080
+
+.
