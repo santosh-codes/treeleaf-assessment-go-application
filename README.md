@@ -100,4 +100,4 @@ Once the application is deployed, it can be accessed from a web browser by follo
 1. **Allow Inbound Rule for port number in AWS EC2 Security group : For this project port number 32743 is used**
 2. **Port Forward the application**
    kubectl port-forward svc/todo-app-service(service-name-of-application) 32743:8080 --address 0.0.0.0 &
-3. **Access the app using http://ec2-public-ip-address:32743**
+3. **Access the app using http://http://15.206.72.205/:32743**
