@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"strconv"
 	"sync"
+
+	"github.com/gorilla/mux"
 )
 
 type Task struct {
@@ -18,11 +20,13 @@ var idCounter int
 var mu sync.Mutex
 
 func main() {
-	http.HandleFunc("/", listTasks)
-	http.HandleFunc("/add", addTask)
-	http.HandleFunc("/done", markTaskDone)
+	r := mux.NewRouter()
 
-	http.ListenAndServe(":8080", nil)
+	r.HandleFunc("/", listTasks).Methods("GET")
+	r.HandleFunc("/add", addTask).Methods("POST")
+	r.HandleFunc("/done", markTaskDone).Methods("GET")
+
+	http.ListenAndServe(":8080", r)
 }
 
 func listTasks(w http.ResponseWriter, r *http.Request) {
