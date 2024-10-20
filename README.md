@@ -18,21 +18,54 @@ To run the application locally, follow these steps:
 1. **Clone the repository** to your local machine:
 
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   git clone https://github.com/santosh-codes/treeleaf-assessment-go-application
+   cd treeleaf-assessment-go-application
 
    ```
 
 2. **Navigate to the src folder**:
 
-   cd src
+   ```bash
+   cd todo-app
+
+   ```
 
 3. **Initialize the Go module** (if not done already):
 
-   go mod init todolist
+   ```bash
+   go mod init todo-app
+
+   ```
 
 4. Run the application:
 
+   ```bash
    go run main.go
 
+   ```
+
 The application will start on http://localhost:8080
+
+## Running the Application in Docker Container
+
+The application is containerized using Docker. The Dockerfile uses a multi-stage build to separate the build environment and runtime environment for the Go application.
+
+### Docker Stages:
+
+1. **Builder Stage**: This stage installs Go, fetches dependencies, and builds the application into a binary.
+2. **Runner Stage**: This stage uses the Alpine base image to run the application, ensuring a smaller container size and faster performance. It also copies the necessary templates and the compiled Go binary from the builder stage.
+
+### Docker Commands
+
+1. **Build the Docker image**:
+
+   ```bash
+   docker build -t <image-name> .
+   ```
+
+2. **Run the Docker container**:
+
+   ```bash
+   docker run -p 8080:8080 <image-name>
+
+   ```
