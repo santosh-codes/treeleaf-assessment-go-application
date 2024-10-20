@@ -18,7 +18,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t santoshcodes/todo-app:latest .
+          docker build -t santoshcodes/todo-app:latest ./todo-app
 
   push:
     runs-on: ubuntu-latest
