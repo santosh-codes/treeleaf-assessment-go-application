@@ -69,3 +69,60 @@ The application is containerized using Docker. The Dockerfile uses a multi-stage
    docker run -p 8080:8080 <image-name>
 
    ```
+
+## Pushing the Docker Image to Docker Hub
+
+After building the Docker image, push it to Docker Hub to make it accessible for deployment on any machine
+
+1. **Tag the Docker image with Docker Hub repository name**:
+
+   ```bash
+   docker tag local-image-name:latest myusername/docker-hub-repo-name:latest
+
+   ```
+
+2. **Login to Docker Hub**:
+
+   ```bash
+   docker login
+
+   ```
+
+3. **Push the Docker image to Docker Hub**:
+
+   ```bash
+   docker push myusername/docker-hub-repo-name:latest
+
+   ```
+
+## Deploying the Application with Kubernetes on AWS EC2 Instance
+
+The application is deployed on a Kubernetes cluster running on an AWS EC2 instance. Minikube is used to create and manage the Kubernetes cluster.
+
+A deployment.yaml file is created which defines the deployment and service configuration for the Todo List application.
+
+After the creation of deployment.yml file use following commands tp deploy
+
+1. **Apply the deployment and service configuration**:
+
+```bash
+ kubectl apply -f deployment.yml
+
+```
+
+2. **Verify the service and pod status**:
+
+```bash
+ kubectl get pods
+ kubectl get svc
+
+```
+
+## Accessing the Application
+
+Once the application is deployed, it can be accessed from a web browser by following the below steps:
+
+1. **Allow Inbound Rule for port number in AWS EC2 Security group : For this project port number 32743 is used**
+2. **Port Forward the application**
+   kubectl port-forward svc/todo-app-service(service-name-of-application) 32743:8080 --address 0.0.0.0 &
+3. **Access the app using http://15.206.47.68:32743/**
