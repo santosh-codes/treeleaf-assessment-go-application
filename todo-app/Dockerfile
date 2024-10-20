@@ -1,14 +1,26 @@
-FROM golang:1.20-alpine
+####### Builder Stage #######
+
+FROM golang:1.20-alpine as builder
 
 WORKDIR /app
 
-COPY go.mod .
+COPY go.mod go.sum ./
+
+RUN go mod download
 
 COPY . .
 
-RUN go get 
-
 RUN go build -o bin .
+
+
+######## Runner Stage ########
+
+FROM alpine:latest as runner
+
+WORKDIR /app
+
+COPY --from=builder /app/bin /app/bin
+COPY --from=builder /app/templates /app/templates
 
 EXPOSE 8080
 
