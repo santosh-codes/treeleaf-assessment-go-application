@@ -32,10 +32,16 @@ To run the application locally, follow these steps:
 
 3. **Initialize the Go module** (if not done already):
 
+   ```bash
    go mod init todo-app
+
+   ```
 
 4. Run the application:
 
+   ```bash
    go run main.go
+
+   ```
 
 The application will start on http://localhost:8080
