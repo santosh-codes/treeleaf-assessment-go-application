@@ -25,7 +25,10 @@ To run the application locally, follow these steps:
 
 2. **Navigate to the src folder**:
 
+   ```bash
    cd todo-app
+
+   ```
 
 3. **Initialize the Go module** (if not done already):
 
