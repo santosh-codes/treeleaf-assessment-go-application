@@ -45,3 +45,5 @@ To run the application locally, follow these steps:
    ```
 
 The application will start on http://localhost:8080
+
+.
