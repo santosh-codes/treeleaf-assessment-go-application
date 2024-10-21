@@ -52,6 +52,8 @@ jobs:
         run: |
           mkdir -p $HOME/.kube
           echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+          export KUBECONFIG=$HOME/.kube/config
+          kubectl config view 
           kubectl get nodes
 
       - name: Deploy to Kubernetes
