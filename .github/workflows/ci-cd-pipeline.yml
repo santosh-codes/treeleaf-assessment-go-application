@@ -59,3 +59,7 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f ./deployment.yml
+          kubectl rollout status deployment/todo-app
+          kubectl expose deployment todo-app --type=nodePort --name=todo-app-service
+          kubectl get pods
+          kubectl get svc
