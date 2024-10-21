@@ -174,7 +174,6 @@ sudo cp -i /etc/kubernetes/admin.conf "$HOME"/.kube/config
 sudo chown "$(id -u)":"$(id -g)" "$HOME"/.kube/config
 
 
-# Network Plugin = calico
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/manifests/calico.yaml
 
 kubeadm token create --print-join-command
@@ -216,4 +215,72 @@ Once the application is deployed, it can be accessed from a web browser by follo
    kubectl port-forward svc/todo-app-service(service-name-of-application) 32743:8080 --address 0.0.0.0 &
 3. **Access the app using http://15.206.47.68:32743/**
 
-.
+## Kubernetes Cluster on AWS using Terraform
+
+This repository contains a Terraform configuration to provision AWS EC2 instances and set up a Kubernetes cluster. The cluster is created using kubeadm, with one master node and two worker nodes (can be scaled). This setup will automate the creation of infrastructure and the installation of Kubernetes
+
+## Terraform Setup
+
+1. AWS Configuration
+
+Before running the Terraform configuration, AWS credentials are set up properly. Using AWS CLI to configure them:
+
+```bash
+aws configure
+
+```
+
+2. SSH Key Pair
+
+Add the path to the public key (~/.ssh/id_rsa.pub) in the Terraform configuration file:
+
+```bash
+resource "aws_key_pair" "k8s_key" {
+key_name   = "k8s-key"
+public_key = file("~/.ssh/id_rsa.pub")
+}
+```
+
+3. Terraform Configuration
+
+This Terraform configuration will create the following resources:
+
+Security Group: Allows SSH (port 22), Kubernetes API (port 6443), Kubelet (port 10250), and NodePort (30000-32767).
+EC2 Instances: One EC2 instance for the Kubernetes master node and multiple worker nodes. The instances will be provisioned with Ubuntu 20.04 LTS.
+Kubernetes Setup: The master node will run kubeadm init, and the worker nodes will join the cluster using the kubeadm join command.
+
+4. Provision Infrastructure
+
+Initialize Terraform:
+
+```bash
+terraform init
+
+```
+
+Review Plan: This step shows the changes Terraform will make.
+
+```bash
+terraform plan
+
+```
+
+Apply the Configuration: Apply the configuration to provision the infrastructure.
+
+```bash
+terraform apply
+
+```
+
+5. Access the Kubernetes Cluster
+   SSH into the Master Node:
+
+   ```bash
+   ssh -i ~/.ssh/id_rsa ubuntu@<MASTER_PUBLIC_IP>
+   ```
+
+6. Clean Up
+
+```bash
+terraform destroy
+```
